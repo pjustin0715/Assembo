@@ -13,44 +13,24 @@ A web application for building PC configurations with real-time compatibility ch
 ## Tech Stack
 
 - **Backend**: Flask (Python)
-- **Frontend**: HTML/CSS/JavaScript (vanilla)
+- **Frontend**: HTML/CSS/JavaScript 
 - **Data**: JSON files
 - **Deployment**: Kubernetes
 
 ## Local Setup
-
-### Prerequisites
-
 - Python 3.11+
 - pip
-
-### Installation
 
 ```bash
 cd assembo
 pip install -r requirements.txt
 ```
 
-### Running Locally
-
 ```bash
 python app.py
 ```
 
 The app will be available at http://localhost:5000
-
-## Adding Your Own Components
-
-Edit `data/components.json` to add your scraped component data. The file contains templates for:
-
-- **Motherboard**: id, brand, model, price, socket, ramType, ramSlots, storageSlots, formFactor, tdp
-- **CPU**: id, brand, model, price, socket, tdp, cores, threads, baseClock, boostClock
-- **GPU**: id, brand, model, price, vram, tdp, length, pcieVersion
-- **RAM**: id, brand, model, price, ramType, capacity, speed, latency
-- **PSU**: id, brand, model, price, wattage, efficiency, modular
-- **Case**: id, brand, model, price, formFactor, maxGpuLength, maxCoolerHeight
-- **Storage**: id, brand, model, price, storageType, capacity, readSpeed, writeSpeed
-- **Cooler**: id, brand, model, price, socketCompat, tdpRating, height
 
 ## Compatibility Rules
 
@@ -74,40 +54,3 @@ docker push your-registry/assembo:latest
 ```bash
 kubectl apply -f deployment.yaml
 ```
-
-## Project Structure
-
-```
-assembo/
-├── app.py                    # Flask application
-├── requirements.txt          # Python dependencies
-├── Dockerfile                # Docker container
-├── deployment.yaml           # Kubernetes manifest
-├── data/
-│   ├── components.json       # Component data
-│   └── builds/               # Saved builds (*.json)
-├── templates/
-│   ├── home.html            # Home page
-│   ├── builder.html         # Part picker
-│   └── summary.html         # Build summary
-├── static/
-│   ├── style.css            # Styles
-│   └── app.js               # Client-side JavaScript
-└── README.md
-```
-
-## API Endpoints
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/` | Home page |
-| GET | `/builder?name=<name>` | Part picker page |
-| GET | `/summary/<name>` | Build summary |
-| GET | `/api/components` | Get all components |
-| GET | `/api/components/<type>` | Get components by type |
-| POST | `/api/compatibility` | Check build compatibility |
-| GET | `/api/builds` | List saved builds |
-| GET | `/api/builds/<name>` | Get specific build |
-| POST | `/api/builds` | Save new build |
-| PUT | `/api/builds/<name>` | Update build |
-| DELETE | `/api/builds/<name>` | Delete build |
