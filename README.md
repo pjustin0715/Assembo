@@ -4,18 +4,18 @@ A web application for building PC configurations with real-time compatibility ch
 
 ## Features
 
-- **Part Picker**: Select from 8 component categories (CPU, GPU, Motherboard, RAM, PSU, Case, Storage, CPU Cooler)
-- **Real-time Compatibility Checking**: Validates socket match, RAM type, slot limits, and power requirements
-- **Budget Calculator**: Set your budget and track spending with real-time updates
-- **Build Summary**: View your complete build with export functionality
-- **JSON-based Storage**: Saved builds stored as JSON files
+- Select from 8 component categories (CPU, GPU, Motherboard, RAM, PSU, Case, Storage, CPU Cooler)
+- Validates socket match, RAM type, slot limits, and power requirements
+- Set your budget and track spending with real-time updates
+- View your complete build with export functionality
+- Saved builds stored as JSON files
 
 ## Tech Stack
 
-- **Backend**: Flask (Python)
-- **Frontend**: HTML/CSS/JavaScript 
-- **Data**: JSON files
-- **Deployment**: Kubernetes
+- Flask 
+- React*
+- MongoDB*
+- Kubernetes
 
 ## Local Setup
 - Python 3.11+
@@ -34,11 +34,11 @@ The app will be available at http://localhost:5000
 
 ## Compatibility Rules
 
-1. **Socket Match**: CPU socket must match Motherboard socket
-2. **RAM Type**: Motherboard must support selected RAM type
-3. **RAM Slots**: Total RAM sticks must not exceed motherboard RAM slots
-4. **Storage Slots**: Total storage drives must not exceed motherboard storage slots
-5. **Power Check**: PSU wattage must be >= (CPU TDP + GPU TDP + 100W overhead)
+1. Socket Match: CPU socket must match Motherboard socket
+2. RAM Type: Motherboard must support selected RAM type
+3. RAM Slots: Total RAM sticks must not exceed motherboard RAM slots
+4. Storage Slots: Total storage drives must not exceed motherboard storage slots
+5. Power Check: PSU wattage must be >= (CPU TDP + GPU TDP + 100W overhead)
 
 ## Kubernetes Deployment
 
