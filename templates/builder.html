@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assembo - Builder</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-left">
+                <a href="/" class="btn btn-secondary">Back to Home</a>
+                <h1>{{ build_name if build_name else 'New Build' }}</h1>
+            </div>
+            <button class="btn btn-secondary" onclick="saveProgress()">Save Progress</button>
+        </header>
+
+        <main class="builder-layout">
+            <aside class="sidebar">
+                <section class="budget-section">
+                    <h3>Budget</h3>
+                    <div class="budget-display">
+                        <input type="range" id="budgetSlider" min="500" max="10000" step="50" value="{{ build.budget if build else 2000 }}">
+                        <div class="budget-info">
+                            <span>Budget: $<span id="budgetValue">{{ build.budget if build else 2000 }}</span></span>
+                            <span>Total: $<span id="totalPrice">0</span></span>
+                            <span class="remaining">Remaining: $<span id="remainingBudget">0</span></span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="slot-indicator">
+                    <h3>Slot Usage</h3>
+                    <div class="slot-bar">
+                        <label>RAM:</label>
+                        <div class="slot-progress">
+                            <div class="slot-fill" id="ramFill" style="width: 0%"></div>
+                        </div>
+                        <span id="ramSlots">0 / 4</span>
+                    </div>
+                    <div class="slot-bar">
+                        <label>Storage:</label>
+                        <div class="slot-progress">
+                            <div class="slot-fill" id="storageFill" style="width: 0%"></div>
+                        </div>
+                        <span id="storageSlots">0 / 4</span>
+                    </div>
+                </section>
+
+                <section class="compatibility-status">
+                    <h3>Status</h3>
+                    <div id="statusBadge" class="status-badge status-pending">Checking...</div>
+                    <div id="issuesList" class="issues-list"></div>
+                </section>
+
+                <button id="completeBuildBtn" class="btn btn-primary btn-large" onclick="completeBuild()" disabled>
+                    View Completed Build
+                </button>
+                <p id="buildRequirements" class="requirements-hint">Select all required parts to complete</p>
+            </aside>
+
+            <section class="parts-selection">
+                <div class="parts-grid">
+                    <!-- Motherboard -->
+                    <div class="part-category" id="motherboard-section">
+                        <h3>Motherboard <span class="required">*</span></h3>
+                        <select id="motherboard" onchange="updateSlots(); checkCompatibility();">
+                            <option value="">Select Motherboard</option>
+                        </select>
+                        <p class="part-hint" id="motherboard-hint"></p>
+                    </div>
+
+                    <!-- CPU -->
+                    <div class="part-category" id="cpu-section">
+                        <h3>CPU <span class="required">*</span></h3>
+                        <select id="cpu" onchange="checkCompatibility();">
+                            <option value="">Select CPU</option>
+                        </select>
+                        <p class="part-hint" id="cpu-hint"></p>
+                    </div>
+
+                    <!-- GPU -->
+                    <div class="part-category" id="gpu-section">
+                        <h3>GPU <span class="required">*</span></h3>
+                        <select id="gpu" onchange="checkCompatibility();">
+                            <option value="">Select GPU</option>
+                        </select>
+                        <p class="part-hint" id="gpu-hint"></p>
+                    </div>
+
+                    <!-- RAM -->
+                    <div class="part-category" id="ram-section">
+                        <h3>RAM</h3>
+                        <select id="ram" onchange="updateSlots(); checkCompatibility();">
+                            <option value="">Select RAM</option>
+                        </select>
+                        <div class="quantity-selector" id="ramQuantitySection" style="display: none;">
+                            <label>Quantity:</label>
+                            <select id="ramQuantity" onchange="updateSlots(); checkCompatibility();">
+                            </select>
+                        </div>
+                        <p class="part-hint" id="ram-hint"></p>
+                    </div>
+
+                    <!-- Storage -->
+                    <div class="part-category" id="storage-section">
+                        <h3>Storage</h3>
+                        <select id="storage" onchange="updateSlots(); checkCompatibility();">
+                            <option value="">Select Storage</option>
+                        </select>
+                        <div class="quantity-selector" id="storageQuantitySection" style="display: none;">
+                            <label>Quantity:</label>
+                            <select id="storageQuantity" onchange="updateSlots(); checkCompatibility();">
+                            </select>
+                        </div>
+                        <p class="part-hint" id="storage-hint"></p>
+                    </div>
+
+                    <!-- PSU -->
+                    <div class="part-category" id="psu-section">
+                        <h3>PSU <span class="required">*</span></h3>
+                        <select id="psu" onchange="checkCompatibility();">
+                            <option value="">Select PSU</option>
+                        </select>
+                        <p class="part-hint" id="psu-hint"></p>
+                    </div>
+
+                    <!-- Case -->
+                    <div class="part-category" id="case-section">
+                        <h3>Case <span class="required">*</span></h3>
+                        <select id="case" onchange="checkCompatibility();">
+                            <option value="">Select Case</option>
+                        </select>
+                        <p class="part-hint" id="case-hint"></p>
+                    </div>
+
+                    <!-- Cooler -->
+                    <div class="part-category" id="cooler-section">
+                        <h3>CPU Cooler <span class="required">*</span></h3>
+                        <select id="cooler" onchange="checkCompatibility();">
+                            <option value="">Select Cooler</option>
+                        </select>
+                        <p class="part-hint" id="cooler-hint"></p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+    <script>
+        const buildName = "{{ build_name | default('') }}";
+        const initialBuild = {{ build | tojson | safe }};
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            loadComponents();
+        });
+    </script>
+</body>
+</html>

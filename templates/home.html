@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assembo - PC Component Builder</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Assembo</h1>
+            <p class="tagline">Build Your Perfect PC</p>
+        </header>
+
+        <main class="main-content">
+            <section class="hero">
+                <h2>Welcome to Assembo</h2>
+                <p>Assembo is your ultimate PC building companion. Select components, check compatibility, and build within your budget.</p>
+            </section>
+
+            <section class="features">
+                <div class="feature">
+                    <h3>Part Picker</h3>
+                    <p>Choose from a wide selection of PC components across 8 categories</p>
+                </div>
+                <div class="feature">
+                    <h3>Compatibility Check</h3>
+                    <p>Real-time validation ensures all parts work together perfectly</p>
+                </div>
+                <div class="feature">
+                    <h3>Budget Calculator</h3>
+                    <p>Stay within budget with live price tracking and warnings</p>
+                </div>
+            </section>
+
+            <section class="actions">
+                <button class="btn btn-primary" onclick="showNewBuildModal()">Start New Build</button>
+                <button class="btn btn-secondary" onclick="showLoadModal()">Load Existing Build</button>
+            </section>
+
+            {% if builds %}
+            <section class="saved-builds">
+                <h2>Saved Builds</h2>
+                <div class="builds-grid">
+                    {% for build in builds %}
+                    <div class="build-card">
+                        <h3>{{ build.name }}</h3>
+                        <p class="build-date">Created: {{ build.created[:10] }}</p>
+                        <p class="build-price">${{ build.totalPrice }} / ${{ build.budget }}</p>
+                        <div class="build-actions">
+                            <a href="/summary/{{ build.name }}" class="btn btn-small">View</a>
+                            <a href="/builder?name={{ build.name }}" class="btn btn-small btn-secondary">Edit</a>
+                            <button class="btn btn-small btn-danger" onclick="deleteBuild('{{ build.name }}')">Delete</button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+            {% endif %}
+        </main>
+    </div>
+
+    <!-- New Build Modal -->
+    <div id="newBuildModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('newBuildModal')">&times;</span>
+            <h2>Start New Build</h2>
+            <form id="newBuildForm" onsubmit="startNewBuild(event)">
+                <div class="form-group">
+                    <label for="buildName">Build Name</label>
+                    <input type="text" id="buildName" name="name" placeholder="e.g., gaming-rig" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Create Build</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Load Build Modal -->
+    <div id="loadModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('loadModal')">&times;</span>
+            <h2>Load Existing Build</h2>
+            <form id="loadForm" onsubmit="loadBuild(event)">
+                <div class="form-group">
+                    <label for="buildFile">Upload Build JSON</label>
+                    <input type="file" id="buildFile" accept=".json" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Load Build</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

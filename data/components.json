@@ -1,0 +1,347 @@
+{
+  "motherboard": [
+    {
+      "id": "mobo_001",
+      "brand": "ASUS",
+      "model": "ROG Strix B650E-F",
+      "price": 279,
+      "socket": "AM5",
+      "ramType": "DDR5",
+      "ramSlots": 4,
+      "maxRam": 128,
+      "storageSlots": 4,
+      "formFactor": "ATX",
+      "tdp": 125
+    },
+    {
+      "id": "mobo_002",
+      "brand": "MSI",
+      "model": "MAG B650 TOMAHAWK",
+      "price": 219,
+      "socket": "AM5",
+      "ramType": "DDR5",
+      "ramSlots": 4,
+      "maxRam": 128,
+      "storageSlots": 4,
+      "formFactor": "ATX",
+      "tdp": 125
+    },
+    {
+      "id": "mobo_003",
+      "brand": "ASUS",
+      "model": "ROG Strix Z790-E",
+      "price": 499,
+      "socket": "LGA1700",
+      "ramType": "DDR5",
+      "ramSlots": 4,
+      "maxRam": 128,
+      "storageSlots": 4,
+      "formFactor": "ATX",
+      "tdp": 125
+    },
+    {
+      "id": "mobo_004",
+      "brand": "MSI",
+      "model": "PRO Z790-A",
+      "price": 229,
+      "socket": "LGA1700",
+      "ramType": "DDR5",
+      "ramSlots": 4,
+      "maxRam": 128,
+      "storageSlots": 4,
+      "formFactor": "ATX",
+      "tdp": 125
+    }
+  ],
+  "cpu": [
+    {
+      "id": "cpu_001",
+      "brand": "AMD",
+      "model": "Ryzen 5 7600X",
+      "price": 299,
+      "socket": "AM5",
+      "tdp": 105,
+      "cores": 6,
+      "threads": 12,
+      "baseClock": 4.7,
+      "boostClock": 5.3
+    },
+    {
+      "id": "cpu_002",
+      "brand": "AMD",
+      "model": "Ryzen 7 7800X3D",
+      "price": 449,
+      "socket": "AM5",
+      "tdp": 120,
+      "cores": 8,
+      "threads": 16,
+      "baseClock": 4.2,
+      "boostClock": 5.0
+    },
+    {
+      "id": "cpu_003",
+      "brand": "Intel",
+      "model": "Core i5-13600K",
+      "price": 319,
+      "socket": "LGA1700",
+      "tdp": 125,
+      "cores": 14,
+      "threads": 20,
+      "baseClock": 3.5,
+      "boostClock": 5.1
+    },
+    {
+      "id": "cpu_004",
+      "brand": "Intel",
+      "model": "Core i7-14700K",
+      "price": 409,
+      "socket": "LGA1700",
+      "tdp": 125,
+      "cores": 20,
+      "threads": 28,
+      "baseClock": 3.4,
+      "boostClock": 5.6
+    }
+  ],
+  "gpu": [
+    {
+      "id": "gpu_001",
+      "brand": "NVIDIA",
+      "model": "GeForce RTX 4060",
+      "price": 299,
+      "vram": 8,
+      "tdp": 115,
+      "length": 240,
+      "pcieVersion": "4.0"
+    },
+    {
+      "id": "gpu_002",
+      "brand": "NVIDIA",
+      "model": "GeForce RTX 4070",
+      "price": 599,
+      "vram": 12,
+      "tdp": 200,
+      "length": 300,
+      "pcieVersion": "4.0"
+    },
+    {
+      "id": "gpu_003",
+      "brand": "NVIDIA",
+      "model": "GeForce RTX 4080",
+      "price": 1199,
+      "vram": 16,
+      "tdp": 320,
+      "length": 336,
+      "pcieVersion": "4.0"
+    },
+    {
+      "id": "gpu_004",
+      "brand": "AMD",
+      "model": "Radeon RX 7600",
+      "price": 269,
+      "vram": 8,
+      "tdp": 165,
+      "length": 220,
+      "pcieVersion": "4.0"
+    },
+    {
+      "id": "gpu_005",
+      "brand": "AMD",
+      "model": "Radeon RX 7800 XT",
+      "price": 499,
+      "vram": 16,
+      "tdp": 263,
+      "length": 267,
+      "pcieVersion": "4.0"
+    }
+  ],
+  "ram": [
+    {
+      "id": "ram_001",
+      "brand": "G.Skill",
+      "model": "Trident Z5 RGB 32GB",
+      "price": 119,
+      "ramType": "DDR5",
+      "capacity": 32,
+      "speed": 6000,
+      "latency": "CL30"
+    },
+    {
+      "id": "ram_002",
+      "brand": "Corsair",
+      "model": "Vengeance 32GB",
+      "price": 89,
+      "ramType": "DDR5",
+      "capacity": 32,
+      "speed": 5600,
+      "latency": "CL36"
+    },
+    {
+      "id": "ram_003",
+      "brand": "Kingston",
+      "model": "Fury Beast 16GB",
+      "price": 49,
+      "ramType": "DDR5",
+      "capacity": 16,
+      "speed": 5200,
+      "latency": "CL40"
+    },
+    {
+      "id": "ram_004",
+      "brand": "G.Skill",
+      "model": "Trident Z5 64GB",
+      "price": 199,
+      "ramType": "DDR5",
+      "capacity": 64,
+      "speed": 6000,
+      "latency": "CL30"
+    }
+  ],
+  "psu": [
+    {
+      "id": "psu_001",
+      "brand": "Corsair",
+      "model": "RM750e 750W",
+      "price": 99,
+      "wattage": 750,
+      "efficiency": "80+ Gold",
+      "modular": "Full"
+    },
+    {
+      "id": "psu_002",
+      "brand": "EVGA",
+      "model": "SuperNOVA 850 G6",
+      "price": 149,
+      "wattage": 850,
+      "efficiency": "80+ Gold",
+      "modular": "Full"
+    },
+    {
+      "id": "psu_003",
+      "brand": "Seasonic",
+      "model": "Focus GX-650",
+      "price": 89,
+      "wattage": 650,
+      "efficiency": "80+ Gold",
+      "modular": "Full"
+    },
+    {
+      "id": "psu_004",
+      "brand": "Corsair",
+      "model": "HX1200 1200W",
+      "price": 249,
+      "wattage": 1200,
+      "efficiency": "80+ Platinum",
+      "modular": "Full"
+    }
+  ],
+  "case": [
+    {
+      "id": "case_001",
+      "brand": "NZXT",
+      "model": "H510",
+      "price": 89,
+      "formFactor": "ATX",
+      "maxGpuLength": 381,
+      "maxCoolerHeight": 165
+    },
+    {
+      "id": "case_002",
+      "brand": "Fractal Design",
+      "model": "Meshify 2",
+      "price": 159,
+      "formFactor": "ATX",
+      "maxGpuLength": 420,
+      "maxCoolerHeight": 185
+    },
+    {
+      "id": "case_003",
+      "brand": "Lian Li",
+      "model": "PC-O11 Dynamic",
+      "price": 139,
+      "formFactor": "ATX",
+      "maxGpuLength": 420,
+      "maxCoolerHeight": 167
+    }
+  ],
+  "storage": [
+    {
+      "id": "storage_001",
+      "brand": "Samsung",
+      "model": "990 Pro 1TB",
+      "price": 109,
+      "storageType": "NVMe SSD",
+      "capacity": 1000,
+      "readSpeed": 7450,
+      "writeSpeed": 6900
+    },
+    {
+      "id": "storage_002",
+      "brand": "WD",
+      "model": "Black SN850X 2TB",
+      "price": 179,
+      "storageType": "NVMe SSD",
+      "capacity": 2000,
+      "readSpeed": 7300,
+      "writeSpeed": 6600
+    },
+    {
+      "id": "storage_003",
+      "brand": "Crucial",
+      "model": "MX500 1TB",
+      "price": 69,
+      "storageType": "SATA SSD",
+      "capacity": 1000,
+      "readSpeed": 560,
+      "writeSpeed": 510
+    },
+    {
+      "id": "storage_004",
+      "brand": "Samsung",
+      "model": "870 EVO 2TB",
+      "price": 139,
+      "storageType": "SATA SSD",
+      "capacity": 2000,
+      "readSpeed": 560,
+      "writeSpeed": 530
+    }
+  ],
+  "cooler": [
+    {
+      "id": "cooler_001",
+      "brand": "Noctua",
+      "model": "NH-D15",
+      "price": 99,
+      "socketCompat": ["AM5", "AM4", "LGA1700", "LGA1200"],
+      "tdpRating": 250,
+      "height": 165
+    },
+    {
+      "id": "cooler_002",
+      "brand": "be quiet!",
+      "model": "Dark Rock Pro 4",
+      "price": 89,
+      "socketCompat": ["AM4", "LGA1700", "LGA1200"],
+      "tdpRating": 250,
+      "height": 162
+    },
+    {
+      "id": "cooler_003",
+      "brand": "Corsair",
+      "model": "H150i Elite Capellix",
+      "price": 189,
+      "socketCompat": ["AM5", "AM4", "LGA1700", "LGA1200"],
+      "tdpRating": 350,
+      "height": 0
+    },
+    {
+      "id": "cooler_004",
+      "brand": "Cooler Master",
+      "model": "Hyper 212",
+      "price": 39,
+      "socketCompat": ["AM5", "AM4", "LGA1700", "LGA1200"],
+      "tdpRating": 180,
+      "height": 159
+    }
+  ]
+}

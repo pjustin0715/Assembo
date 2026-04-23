@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: assembo
+  labels:
+    app: assembo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: assembo
+  template:
+    metadata:
+      labels:
+        app: assembo
+    spec:
+      containers:
+      - name: assembo
+        image: assembo:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 5000
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 5000
+          initialDelaySeconds: 10
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 5000
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        env:
+        - name: DATA_DIR
+          value: "/app/data"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: assembo-service
+spec:
+  type: NodePort
+  selector:
+    app: assembo
+  ports:
+  - protocol: TCP
+    port: 5000
+    targetPort: 5000
+    nodePort: 30007

@@ -1,0 +1,78 @@
+{
+  "name": "dfsdf",
+  "created": "2026-04-06T22:52:33.877490",
+  "budget": 2250,
+  "totalPrice": 2113,
+  "parts": {
+    "cpu": {
+      "id": "cpu_001",
+      "brand": "AMD",
+      "model": "Ryzen 5 7600X",
+      "price": 0,
+      "socket": "AM5",
+      "tdp": 105
+    },
+    "gpu": {
+      "id": "gpu_003",
+      "brand": "NVIDIA",
+      "model": "GeForce RTX 4080",
+      "price": 1199,
+      "tdp": 320
+    },
+    "motherboard": {
+      "id": "mobo_001",
+      "brand": "ASUS",
+      "model": "ROG Strix B650E-F",
+      "price": 279,
+      "socket": "AM5",
+      "ramType": "DDR5",
+      "ramSlots": 4,
+      "storageSlots": 4
+    },
+    "ram": [
+      {
+        "id": "ram_002",
+        "brand": "Corsair",
+        "model": "Vengeance 32GB",
+        "price": 89,
+        "ramType": "DDR5"
+      }
+    ],
+    "storage": [
+      {
+        "id": "storage_001",
+        "brand": "Samsung",
+        "model": "990 Pro 1TB",
+        "price": 109
+      }
+    ],
+    "psu": {
+      "id": "psu_004",
+      "brand": "Corsair",
+      "model": "HX1200 1200W",
+      "price": 249,
+      "wattage": 1200
+    },
+    "case": {
+      "id": "case_001",
+      "brand": "NZXT",
+      "model": "H510",
+      "price": 89
+    },
+    "cooler": {
+      "id": "cooler_001",
+      "brand": "Noctua",
+      "model": "NH-D15",
+      "price": 99
+    }
+  },
+  "compatibility": {
+    "status": "compatible"
+  },
+  "slotUsage": {
+    "ramCount": 1,
+    "ramTotal": 4,
+    "storageCount": 1,
+    "storageTotal": 4
+  }
+}
