@@ -628,6 +628,14 @@ function closeModal(modalId) {
 async function startNewBuild(event) {
     event.preventDefault();
     const name = document.getElementById('buildName').value.toLowerCase().replace(/[^a-z0-9-]/g, '-');
+
+    const response = await fetch('/api/builds');
+        const builds = await response.json();
+        
+        if (builds.some(b => b.name === name)) {
+            alert(`Build "${name}" already exists. Use "Load Build" to edit it.`);
+            return;
+        }
     
     window.location.href = `/builder?name=${name}`;
 }

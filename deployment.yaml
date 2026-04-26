@@ -42,6 +42,11 @@ spec:
         env:
         - name: DATA_DIR
           value: "/app/data"
+        - name: MONGODB_URI
+          valueFrom:
+            secretKeyRef:
+              name: assembo-secret
+              key: MONGODB_URI
 ---
 apiVersion: v1
 kind: Service

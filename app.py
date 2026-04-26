@@ -1,44 +1,68 @@
 import json
+import bson
 import os
+from dotenv import load_dotenv
+import pymongo
 from datetime import datetime
-from flask import Flask, render_template, request, jsonify, send_from_directory
+from flask import Flask, render_template, request, jsonify, send_from_directory, current_app, g
 
 app = Flask(__name__)
+
+load_dotenv()
+
+cluster = pymongo.MongoClient(os.getenv("MONGODB_URI"))
+db = cluster["assembo"]
+
 
 DATA_DIR = os.environ.get('DATA_DIR', os.path.join(os.path.dirname(__file__), 'data'))
 COMPONENTS_FILE = os.path.join(DATA_DIR, 'components.json')
 BUILDS_DIR = os.path.join(DATA_DIR, 'builds')
 
 def load_components():
-    with open(COMPONENTS_FILE, 'r') as f:
-        return json.load(f)
+    return {
+        "motherboard" : list(db.motherboards.find({}, {"_id":0,"componentType":0})), 
+        "cpu" : list(db.cpus.find({}, {"_id":0,"componentType":0})), 
+        "gpu" : list(db.gpus.find({}, {"_id":0,"componentType":0})), 
+        "ram" : list(db.rams.find({}, {"_id":0,"componentType":0})), 
+        "psu" : list(db.psus.find({}, {"_id":0,"componentType":0})), 
+        "case" : list(db.cases.find({}, {"_id":0,"componentType":0})), 
+        "storage" : list(db.storages.find({}, {"_id":0,"componentType":0})), 
+        "cooler" : list(db.coolers.find({}, {"_id":0,"componentType":0})) 
+    }
 
 def load_build(name):
-    build_file = os.path.join(BUILDS_DIR, f'{name}.json')
-    if os.path.exists(build_file):
-        with open(build_file, 'r') as f:
-            return json.load(f)
-    return None
+    build = db.builds.find({"name":name},{"_id":0,"migratedAt":0})
+    for result in build:
+        return result
+    
+def check_name(name):
+    buildnames = []
+    all_builds = list(db.builds.find({},{"_id":0,"migratedAt":0}))
+    for build in all_builds:
+        buildnames.append(
+            build.get('name','')
+        )
+    if name in buildnames:
+        return True
+    return False
 
 def save_build(name, data):
-    build_file = os.path.join(BUILDS_DIR, f'{name}.json')
-    with open(build_file, 'w') as f:
-        json.dump(data, f, indent=2)
+    if check_name(name):
+        db.builds.delete_one({"name":name})
+        db.builds.insert_one(data)
+    else:
+        db.builds.insert_one(data)
 
 def get_builds_list():
     builds = []
-    if os.path.exists(BUILDS_DIR):
-        for filename in os.listdir(BUILDS_DIR):
-            if filename.endswith('.json'):
-                name = filename[:-5]
-                build = load_build(name)
-                if build:
-                    builds.append({
-                        'name': name,
-                        'created': build.get('created', ''),
-                        'totalPrice': build.get('totalPrice', 0),
-                        'budget': build.get('budget', 0)
-                    })
+    all_builds = list(db.builds.find({},{"_id":0,"migratedAt":0}))
+    for build in all_builds:
+        builds.append({
+            'name': build.get('name',''),
+            'created': build.get('created', ''),
+            'totalPrice': build.get('totalPrice', 0),
+            'budget': build.get('budget', 0)
+        })
     return builds
 
 def check_compatibility(parts, components):
@@ -181,10 +205,6 @@ def create_build():
     if not name:
         return jsonify({'error': 'Build name required'}), 400
     
-    build_file = os.path.join(BUILDS_DIR, f'{name}.json')
-    if os.path.exists(build_file):
-        return jsonify({'error': 'Build name already exists'}), 400
-    
     parts = data.get('parts', {})
     budget = data.get('budget', 0)
     
@@ -235,10 +255,6 @@ def create_build():
 @app.route('/api/builds/<name>', methods=['PUT'])
 def update_build(name):
     data = request.json
-    build_file = os.path.join(BUILDS_DIR, f'{name}.json')
-    
-    if not os.path.exists(build_file):
-        return jsonify({'error': 'Build not found'}), 404
     
     parts = data.get('parts', {})
     budget = data.get('budget', 0)
@@ -284,14 +300,15 @@ def update_build(name):
         }
     }
     
+
+    
     save_build(name, build_data)
     return jsonify({'success': True, 'name': name})
 
 @app.route('/api/builds/<name>', methods=['DELETE'])
 def delete_build(name):
-    build_file = os.path.join(BUILDS_DIR, f'{name}.json')
-    if os.path.exists(build_file):
-        os.remove(build_file)
+    if check_name(name):
+        db.builds.delete_one({"name":name})
         return jsonify({'success': True})
     return jsonify({'error': 'Build not found'}), 404
 

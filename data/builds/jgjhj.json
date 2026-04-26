@@ -1,0 +1,78 @@
+{
+  "name": "jgjhj",
+  "created": "2026-04-25T18:13:50.196513",
+  "budget": 2000,
+  "totalPrice": 1973,
+  "parts": {
+    "cpu": {
+      "id": "cpu_004",
+      "brand": "Intel",
+      "model": "Core i7-14700K",
+      "price": 0,
+      "socket": "LGA1700",
+      "tdp": 125
+    },
+    "gpu": {
+      "id": "gpu_003",
+      "brand": "NVIDIA",
+      "model": "GeForce RTX 4080",
+      "price": 1199,
+      "tdp": 320
+    },
+    "motherboard": {
+      "id": "mobo_004",
+      "brand": "MSI",
+      "model": "PRO Z790-A",
+      "price": 229,
+      "socket": "LGA1700",
+      "ramType": "DDR5",
+      "ramSlots": 4,
+      "storageSlots": 4
+    },
+    "ram": [
+      {
+        "id": "ram_001",
+        "brand": "G.Skill",
+        "model": "Trident Z5 RGB 32GB",
+        "price": 119,
+        "ramType": "DDR5"
+      }
+    ],
+    "storage": [
+      {
+        "id": "storage_001",
+        "brand": "Samsung",
+        "model": "990 Pro 1TB",
+        "price": 109
+      }
+    ],
+    "psu": {
+      "id": "psu_003",
+      "brand": "Seasonic",
+      "model": "Focus GX-650",
+      "price": 89,
+      "wattage": 650
+    },
+    "case": {
+      "id": "case_003",
+      "brand": "Lian",
+      "model": "Li PC-O11 Dynamic",
+      "price": 139
+    },
+    "cooler": {
+      "id": "cooler_002",
+      "brand": "be",
+      "model": "quiet! Dark Rock Pro 4",
+      "price": 89
+    }
+  },
+  "compatibility": {
+    "status": "compatible"
+  },
+  "slotUsage": {
+    "ramCount": 1,
+    "ramTotal": 4,
+    "storageCount": 1,
+    "storageTotal": 4
+  }
+}
