@@ -8,14 +8,13 @@ A web application for building PC configurations with real-time compatibility ch
 - Validates socket match, RAM type, slot limits, and power requirements
 - Set your budget and track spending with real-time updates
 - View your complete build with export functionality
-- Saved builds stored as JSON files
+- Saved builds stored with MongoDB
 
 ## Tech Stack
 
 - Flask 
-- React*
-- MongoDB*
-- Kubernetes
+- JavaScript
+- MongoDB
 
 ## Local Setup
 - Python 3.11+
@@ -39,18 +38,3 @@ The app will be available at http://localhost:5000
 3. RAM Slots: Total RAM sticks must not exceed motherboard RAM slots
 4. Storage Slots: Total storage drives must not exceed motherboard storage slots
 5. Power Check: PSU wattage must be >= (CPU TDP + GPU TDP + 100W overhead)
-
-## Kubernetes Deployment
-
-### Build and Push Image
-
-```bash
-docker build -t assembo:latest .
-docker push your-registry/assembo:latest
-```
-
-### Deploy
-
-```bash
-kubectl apply -f deployment.yaml
-```
