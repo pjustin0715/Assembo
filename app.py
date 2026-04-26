@@ -14,10 +14,6 @@ cluster = pymongo.MongoClient(os.getenv("MONGODB_URI"))
 db = cluster["assembo"]
 
 
-DATA_DIR = os.environ.get('DATA_DIR', os.path.join(os.path.dirname(__file__), 'data'))
-COMPONENTS_FILE = os.path.join(DATA_DIR, 'components.json')
-BUILDS_DIR = os.path.join(DATA_DIR, 'builds')
-
 def load_components():
     return {
         "motherboard" : list(db.motherboards.find({}, {"_id":0,"componentType":0})), 
@@ -313,5 +309,5 @@ def delete_build(name):
     return jsonify({'error': 'Build not found'}), 404
 
 if __name__ == '__main__':
-    os.makedirs(BUILDS_DIR, exist_ok=True)
+    #os.makedirs(BUILDS_DIR, exist_ok=True)
     app.run(debug=True, host='0.0.0.0', port=5000)
